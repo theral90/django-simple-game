@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Welcome, {{ user.get_full_name }} <small>{{ user.username }}</small>!</h2>
+    <p>Your birth date: {{ user.profile.birth_date }}</p>
+    <h2>Congratulations, you have logged in!!!</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+    <div class="col noPadding d-flex justify-content-end mb-2">
+        <a href="{% url 'menu' %}"> <button type="submit">Menu</button></a></div>
+{% endblock %}

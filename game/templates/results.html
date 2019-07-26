@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ ranking.name }}</h2>
+Score: {{ ranking.score }}<br>
+Created: {{ ranking.created }}<br>
+Results: {% for c in results %}{{ c.name }}{% endfor %}
+
+
+{% endblock %}
