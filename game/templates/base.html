@@ -9,6 +9,7 @@
     <header>
       {% include 'navbar.html' %}
       {% if user.is_authenticated %}
+       <a href="{% url 'rankings' %}"> <button type="submit" style="float: right;">Results</button></a>
       <ul>
         <li><a href="{% url 'logout' %}"><button type="submit">Logout</button></a></li></ul>
       {% else %}
@@ -16,7 +17,6 @@
         <li><a href="{% url 'login' %}"><button type="submit">Login</button></a></li> /
         <li><a href="{% url 'signup' %}"><button type="submit">SignUp</button></a></li>
       </ul>
-      <a href="{% url 'rankings' %}"> <button type="submit" style="float: right;">Results</button></a>
       {% endif %}
     </header>
     <main>
