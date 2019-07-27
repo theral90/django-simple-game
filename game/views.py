@@ -1,11 +1,9 @@
 from django.views import View
 from django.shortcuts import render, redirect
 from .models import Ranking
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from game.forms import SignUpForm
+from game.forms import SignUpForm, ScoreForm
 
 
 @login_required
@@ -32,39 +30,29 @@ def signup(request):
 
 class FirstView(View):
     def get(self, request):
-
         return render(request, "first.html")
 
 
 class GameView(View):
     def get(self, request):
-        form = '<input name="score" type="text" /><input name="username" type="text" />'
-        username = 'someUser'
-        return render(request, "game.html", {'form': form, 'username': username})
+        return render(request, "game.html")
 
     def post(self, request):
+        my_rank = Ranking()
+        my_rank.name = request.user.profile
+        my_rank.score = request.POST['score']
+        my_rank.save()
 
-        return self.get(request)
+        return redirect('rankings')
 
 
 class MenuView(View):
     def get(self, request):
-
         return render(request, "menu.html")
 
 
 class RankingView(View):
-
     def get(self, request):
-
-        rankings = Ranking.objects.all()
+        rankings = Ranking.objects.order_by('-score')[:5]
         ctx = {"rankings": rankings}
         return render(request, "rankings.html", ctx)
-
-
-class AddRanking(CreateView):
-
-    model = Ranking
-    fields = '__all__'
-    template_name = 'add_rankings.html'
-    success_url = reverse_lazy("rankings")
