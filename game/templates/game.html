@@ -14,8 +14,7 @@
             margin: 0;
         }
         #score-form {
-           /* Odkomentuj, aby ukryć formularz  */
-           /* display: none; */
+           display: none;
         }
         #game-area {
             text-align: center;;
@@ -50,18 +49,16 @@
 <body>
     <div id="game-area"></div>
 
-    <!-- splash info -->
     <div id="splash-info">
         <h2>Your final score:</h2>
         <h3 id="final-score"></h3>
         <h4>Well done!</h4>
     </div>
-    <!-- ten form będzie się wysyłać -->
     <form method="post" id="score-form">
         {% csrf_token %}
-        {{ form|safe }}
+        <input type="hidden" name="score" />
     </form>
-    <!-- / ten form będzie się wysyłać -->
+
 
 <script type="text/javascript">
 
@@ -154,7 +151,6 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
         key: 'star',
         repeat: 11,
@@ -260,23 +256,18 @@ function hitBomb (player, bomb)
 
     gameOver = true;
 
-    /* tu ewentualnie ustawiasz jakąś animacje */
-    $('#final-score').text(score); // Wrzycanie info do splasha
-    $('#splash-info').fadeIn(250); // Pokazanie splasha
-    var form = $('#score-form'); // Złapanie forma
-    form.find('[name=score]').val(score); // Ustawienie punktów
-    form.find('[name=username]').val('{{ username }}'); // Ustawienie gracza - ale to możesz też ustalić w widoku gdzie przechwytujesz dane z formularza
-    setTimeout(function(){ // Submit po 3 sekundach
+
+    $('#final-score').text(score);
+    $('#splash-info').fadeIn(250);
+    var form = $('#score-form');
+    form.find('[name=score]').val(score);
+    form.find('[name=username]').val('{{ username }}');
+    setTimeout(function(){
         form.submit()
-    },3000);
+    },500);
 }
 
 </script>
-    <ul>
-        <li>
-            <a href="{% url 'add_rankings' %}"><button type="submit">Dodaj Wynik</button></a>
-        </li>
-    </ul>
 </body>
 </html>
 {% endblock %}
