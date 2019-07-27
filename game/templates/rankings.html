@@ -2,15 +2,15 @@
 {% block content %}
 
 <h2>Player Rankings</h2>
-
+<ul>
 {% for rank in rankings %}
-<p>Nazwa: <strong>{{ rank.name }}</strong><br>
-Wynik: {{ rank.score }}<br>
-Utworzono:  {{ rank.created }}<br></p>
+<p>Name: <strong>{{ rank.name.user.username }}</strong><br>
+Score: {{ rank.score }}<br>
+Created:  {{ rank.created }}<br></p>
 {% endfor %}
-
+</ul>
 
 <div class="col noPadding d-flex justify-content-end mb-2">
-        <a href="{% url 'menu' %}"> <button type="submit">Menu</button></a></div>
+        <a href="{% url 'menu' %}"><button type="submit">Menu</button></a></div>
 
 {% endblock %}
